@@ -36,6 +36,8 @@ Array de possíveis caracteres = K
 
 O caractere "c" em nosso array de possíveis caracteres (K) tem o índice 2. Esse também será nosso índice no array da tabela hash.
 
+![exemplo hash](./hash.png)
+
 ## Como rodar?
 
 ### GCC
