@@ -1,18 +1,21 @@
-#define TAMANHO 1000000
+#define TAMANHO 41
+#define VALID_CHARS "abcdefghijklmnopqrstuvwxyz0123456789, .?:"
 
-typedef struct No{
-  int chave;
+typedef struct No
+{
+  char chave;
   struct No *proximo;
 } No;
 
-typedef struct tabela_hash{
+typedef struct tabela_hash
+{
   No *tabela[TAMANHO];
-}tabela_hash;
+} tabela_hash;
 
-int funcao_hash(int chave);
-No *criar_no(int chave);
+int funcao_hash(char chave);
+No *criar_no(char chave);
 void inicializar_tabela(tabela_hash *tabela);
-void inserir(tabela_hash *tabela, int chave);
-int buscar(tabela_hash *tabela, int chave);
-void remover(tabela_hash *tabela, int chave);
-void imprimir_tabela(tabela_hash* tabela);
+void inserir(tabela_hash *tabela, char chave);
+int buscar(tabela_hash *tabela, char chave);
+void remover(tabela_hash *tabela, char chave);
+void imprimir_tabela(tabela_hash *tabela);
