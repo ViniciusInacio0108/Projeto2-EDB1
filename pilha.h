@@ -1,9 +1,11 @@
-typedef struct no{
-    int dado;
-    struct no *proximo;
-}No;
+#define TAM_MAX 1000000
 
-void push(No **topo, int valor);
-int pop(No **topo);
-int esta_vazia(No *topo);
-int peek(No *topo);
+typedef struct {
+    int itens[TAM_MAX];
+    int topo;
+}Pilha;
+
+void push(Pilha* p, int valor);
+int esta_vazia(Pilha *p);
+int pop(Pilha *p);
+int peek(Pilha *p);

@@ -1,37 +1,32 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include "pilha.h"
 
-void push(No **topo, int valor){
-  No *novo_no = (No *)malloc(sizeof(No));
-  novo_no->dado = valor;
-  novo_no->proximo = *topo;
-  *topo = novo_no;
+void push(Pilha* p, int valor) {
+  if(p->topo < TAM_MAX-1){
+    p->itens[++p->topo] = valor;
+  }else{
+    printf("Erro: Pilha cheia!\n");
+  }
 }
 
-int pop(No **topo){
-  if(*topo != NULL){
-    No *temp = *topo;
-    int valor = temp->dado;
-    *topo = (*topo)->proximo;
-        
-    free(temp);
-        
-    return valor;
+int esta_vazia(Pilha *p){
+  return p->topo == -1;
+}
+
+int pop(Pilha *p){
+  if(!esta_vazia(p)){
+    return p->itens[p->topo--];
   }
 
   printf("Erro: Pilha vazia!\n");
- 
-  return -1; 
+  
+  return -1;
 }
 
-int esta_vazia(No *topo){
-  return topo == NULL;
-}
-
-int peek(No *topo){
-  if(topo != NULL)
-    return topo->dado;
+int peek(Pilha *p){
+  if(p->topo >= 0){
+    return p->itens[p->topo];
+  }
 
   printf("Erro: Pilha vazia!\n");
     
