@@ -1,21 +1,20 @@
 #define TAMANHO 41
 #define VALID_CHARS "abcdefghijklmnopqrstuvwxyz0123456789, .?:"
 
-typedef struct No
+typedef struct CaractereDetalhe
 {
-  char chave;
-  struct No *proximo;
-} No;
+  char caractere;
+  int quantidade;
+} CaractereDetalhe;
 
 typedef struct tabela_hash
 {
-  No *tabela[TAMANHO];
+  CaractereDetalhe *caracteres[TAMANHO];
 } tabela_hash;
 
 int funcao_hash(char chave);
-No *criar_no(char chave);
+CaractereDetalhe *criar_caractere(char chave, CaractereDetalhe *antigoDetalhe);
 void inicializar_tabela(tabela_hash *tabela);
 void inserir(tabela_hash *tabela, char chave);
-int buscar(tabela_hash *tabela, char chave);
-void remover(tabela_hash *tabela, char chave);
+CaractereDetalhe *buscar(tabela_hash *tabela, char chave);
 void imprimir_tabela(tabela_hash *tabela);

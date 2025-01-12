@@ -17,107 +17,70 @@ int funcao_hash(char chave)
   }
   switch (chave)
   {
-  case '.':
+  case ',':
     return 36;
-  case '?':
+  case ' ':
     return 37;
-  case ':':
+  case '.':
     return 38;
-  case ';':
+  case '?':
     return 39;
+  case ':':
+    return 40;
   }
 }
 
-No *criar_no(char chave)
+CaractereDetalhe *criar_caractere(char chave, int quantidade)
 {
-  No *novo_no = (No *)malloc(sizeof(No));
-  if (novo_no)
+  CaractereDetalhe *novo_caractere = (CaractereDetalhe *)malloc(sizeof(CaractereDetalhe));
+  if (novo_caractere)
   {
-    novo_no->chave = chave;
-    novo_no->proximo = NULL;
+    novo_caractere->caractere = chave;
+    novo_caractere->quantidade = quantidade;
   }
-  return novo_no;
+
+  return novo_caractere;
 }
 
 void inicializar_tabela(tabela_hash *tabela)
 {
   for (int i = 0; i < TAMANHO; i++)
   {
-    tabela->tabela[i] = NULL;
+    tabela->caracteres[i] = NULL;
   }
 }
 
 void inserir(tabela_hash *tabela, char chave)
 {
   int indice = funcao_hash(chave);
-  No *novo_no = criar_no(chave);
 
-  if (tabela->tabela[indice] == NULL)
+  if (tabela->caracteres[indice] == NULL)
   {
-    tabela->tabela[indice] = novo_no;
+    CaractereDetalhe *novo_caractere = criar_caractere(chave, 0);
+    tabela->caracteres[indice] = novo_caractere;
   }
   else
   {
-    novo_no->proximo = tabela->tabela[indice];
-    tabela->tabela[indice] = novo_no;
+    CaractereDetalhe *novo_caractere = criar_caractere(chave, tabela->caracteres[indice]->quantidade++);
+    tabela->caracteres[indice] = novo_caractere;
   }
 }
 
-int buscar(tabela_hash *tabela, char chave)
+CaractereDetalhe *buscar(tabela_hash *tabela, char chave)
 {
   int indice = funcao_hash(chave);
-  No *atual = tabela->tabela[indice];
+  CaractereDetalhe *atual = tabela->caracteres[indice];
 
-  while (atual != NULL)
-  {
-    if (atual->chave == chave)
-    {
-      return 1;
-    }
-    atual = atual->proximo;
-  }
-
-  return 0;
-}
-
-void remover(tabela_hash *tabela, char chave)
-{
-  int indice = funcao_hash(chave);
-  No *atual = tabela->tabela[indice];
-  No *anterior = NULL;
-
-  while (atual != NULL)
-  {
-    if (atual->chave == chave)
-    {
-      if (anterior == NULL)
-      {
-        tabela->tabela[indice] = atual->proximo;
-      }
-      else
-      {
-        anterior->proximo = atual->proximo;
-      }
-      free(atual);
-      return;
-    }
-    anterior = atual;
-    atual = atual->proximo;
-  }
-  printf("Chave %c não encontrada para remoção.\n", chave);
+  return atual;
 }
 
 void imprimir_tabela(tabela_hash *tabela)
 {
   for (int i = 0; i < TAMANHO; i++)
   {
-    printf("Índice %d: ", i);
-    No *atual = tabela->tabela[i];
-    while (atual != NULL)
-    {
-      printf("%c -> ", atual->chave);
-      atual = atual->proximo;
-    }
-    printf("NULL\n");
+    printf("Índice %d: \n", i);
+    CaractereDetalhe *atual = tabela->caracteres[i];
+    printf("Caractere: %c \n", atual->caractere);
+    printf("Quantidade: %d \n", atual->quantidade);
   }
 }
