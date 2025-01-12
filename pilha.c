@@ -15,6 +15,17 @@ int pilha_full(Pilha *p) {
     return p->topo == MAX - 1;
 }
 
+Pilha get_pilha(Pilha *p, const char *value) {
+    for (int i = 0; i < p->topo; i++)
+    {
+        if(p->valor[i] == value) {
+            return p->valor[i];
+        }
+    }
+
+    print("Não encontrado!");
+}
+
 void pile(Pilha *p, const char *newValue) {
     if (pilha_full(p)) {
         print("Pilha cheia!");
