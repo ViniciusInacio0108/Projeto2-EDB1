@@ -1,51 +1,39 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include "pilha.h"
 
-void init_pilha(Pilha *p) {
-    p->topo = -1;
+void push(No **topo, int valor){
+  No *novo_no = (No *)malloc(sizeof(No));
+  novo_no->dado = valor;
+  novo_no->proximo = *topo;
+  *topo = novo_no;
 }
 
-int pilha_empty(Pilha *p) {
-    return p->topo == -1;
+int pop(No **topo){
+  if(*topo != NULL){
+    No *temp = *topo;
+    int valor = temp->dado;
+    *topo = (*topo)->proximo;
+        
+    free(temp);
+        
+    return valor;
+  }
+
+  printf("Erro: Pilha vazia!\n");
+ 
+  return -1; 
 }
 
-int pilha_full(Pilha *p) {
-    return p->topo == MAX - 1;
+int esta_vazia(No *topo){
+  return topo == NULL;
 }
 
-Pilha get_pilha(Pilha *p, const char *value) {
-    for (int i = 0; i < p->topo; i++)
-    {
-        if(p->valor[i] == value) {
-            return p->valor[i];
-        }
-    }
+int peek(No *topo){
+  if(topo != NULL)
+    return topo->dado;
 
-    print("Não encontrado!");
-}
-
-void pile(Pilha *p, const char *newValue) {
-    if (pilha_full(p)) {
-        print("Pilha cheia!");
-        return;
-    }
-
-    p->topo++;
-    // alocar com o tamanhbo da linha da mensagem
-    p->valor[p->topo] = (char *)malloc(strlen(newValue) + 1);
-    if (p->valor[p->topo] != NULL) {
-        strcpy(p->valor[p->topo], newValue);
-    }
-}
-
-void depile(Pilha *p) {
-    if (pilha_empty(p)) {
-        print("Pilha Vazia!");
-        return;  
-    }
-
-    free(p->valor[p->topo]);
-    p->topo--;
+  printf("Erro: Pilha vazia!\n");
+    
+  return -1;
 }

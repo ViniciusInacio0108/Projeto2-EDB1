@@ -1,14 +1,11 @@
 #define MAX 1000
 
-typedef struct Pilha
-{
-    char *valor[MAX];
-    int topo;
-};
+typedef struct no{
+    int dado;
+    struct no *proximo;
+}No;
 
-void init_pilha(Pilha *p);
-int pilha_empty(Pilha *p);
-int pilha_full(Pilha *p);
-Pilha get_pilha(Pilha *p, const char *value);
-void pile(Pilha *p, const char *newValue);
-void depile(Pilha *p);
+void push(No **topo, int valor);
+int pop(No **topo);
+int esta_vazia(No *topo);
+int peek(No *topo);
