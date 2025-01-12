@@ -1,5 +1,3 @@
-#define MAX 1000
-
 typedef struct no{
     int dado;
     struct no *proximo;
